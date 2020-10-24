@@ -1,3 +1,4 @@
 faker
 sklearn
-handyspark
+boto3
+plot_metric

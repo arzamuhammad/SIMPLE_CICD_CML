@@ -1,9 +1,5 @@
+import numpy as np
 import pandas as pd
-import datetime
-
-#pd.read_csv('data/historical.csv')['offer'].unique()
-
-
 import boto3 
 
 def get_models():
@@ -28,12 +24,14 @@ def find_latest(models):
   
 def load_latest_pipeline(filtered):
   ## Get url for latest pipeline
-  latest_pipeline_url = [model for model in find_latest(models) if "pipeline" in model][0]
+  latest_pipeline = [model for model in find_latest(models) if "pipeline" in model][0]
+  latest_pipeline_url = "s3://demo-aws-1/datalake/pdefusco/simple_cicd_models/{}".format(latest_pipeline)
   
   return latest_pipeline_url
 
 def load_latest_lr(filtered):
   ## Get url for latest bestLR
-  latest_bestLR_url = [model for model in find_latest(models) if "bestLR" in model][0]
+  latest_bestLR = [model for model in find_latest(models) if "bestLR" in model][0]
+  latest_bestLR_url = "s3://demo-aws-1/datalake/pdefusco/simple_cicd_models/{}".format(latest_bestLR)
   
   return latest_bestLR_url
