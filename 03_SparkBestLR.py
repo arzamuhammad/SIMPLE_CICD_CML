@@ -15,7 +15,6 @@ spark = SparkSession\
     .builder\
     .appName("PythonSQL")\
     .config("spark.hadoop.fs.s3a.s3guard.ddb.region","us-east-1")\
-    .config("spark.yarn.access.hadoopFileSystems","s3a://demo-aws-1/")\
     .config("spark.hadoop.yarn.resourcemanager.principal",os.environ["HADOOP_USER_NAME"])\
     .config("spark.yarn.access.hadoopFileSystems", "s3a://demo-aws-1")\
     .config("spark.executor.instances", 2)\
@@ -25,9 +24,8 @@ spark = SparkSession\
 latest_transformed_interactions_DF = spark.sql("SELECT * FROM DEFAULT.TRANSFORMED_INTERACTIONS_CICD LIMIT 10000")
 
 ## Using Helper methods from utils.get_latest_models to load latest pipeline
-models = get_models()
-filtered = find_latest(models)
-latest_bestLR_url = load_latest_lr(filtered)
+
+-----
 
 lr = LogisticRegression.load(latest_bestLR_url)
 
