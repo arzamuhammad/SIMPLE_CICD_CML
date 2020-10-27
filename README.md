@@ -1,7 +1,7 @@
 # CI / CD for Database Scoring in Cloudera Machine Learning with PySpark Pipelines
 
 
-![alt text](https://github.com/pdefusco/myimages_repo/blob/main/Simple%20CI_CD%20in%20CML.png)
+![alt text](https://github.com/pdefusco/myimages_repo/blob/main/Simple%20CI_CD%20in%20CML.jpeg)
 
 
 ## INSTRUCTIONS FOR USE
@@ -31,6 +31,7 @@
 - Set execution on an hourly basis but at a time later than the scheduled time for 01_DataIngest.py.
 - This script imports the PySpark model you tuned in step 2.
 - It then makes predictions on the new customer data.
+
 
 ##### 5. Create a CML Job with the 03_RetrainPipeline.py script
 
