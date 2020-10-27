@@ -6,6 +6,13 @@
 
 ## INSTRUCTIONS FOR USE
 
+##### 0. Clone this github repository
+
+- Create a new CML blank project (do not create from github)
+- In the new project, start a Workbench editor session, open the terminal, and execute the following command:
+"git clone https://github.com/pdefusco/Simple_CICD_CML.git"
+
+
 ##### 1. Open a Workbench editor session and run 00_bootstrap.py
 
 - This step will create and prepopulate a Spark Table with historical customer interactions.
