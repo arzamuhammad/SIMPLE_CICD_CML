@@ -46,3 +46,8 @@
 - This script imports the PySpark pipeline you created in step 2.
 - It then retrains this pipeline on the new customer data. 
 - NB: in a real world scenario, you'd have to schedule a waiting time to allow for customer responses to come into the customer table.
+
+
+10/27/20 WIP items
+1. There is no dashboard yet
+2. The model in 01_ModelDevelopment.ipynb is not tuned. I will be working on a custom oversampling stage to improve that model.
