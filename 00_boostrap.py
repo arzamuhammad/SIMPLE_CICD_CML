@@ -1,7 +1,6 @@
 ## NB: Only run this once ##
 
-#spark.sql("drop table if exists default.customer_interactions_cicd")
-!rm /home/cdsw/Simple_CICD_CML/models.db
+#!rm /home/cdsw/Simple_CICD_CML/models.db
 
 import os
 import time
@@ -44,7 +43,7 @@ spark = SparkSession\
     .config("spark.hadoop.yarn.resourcemanager.principal",os.environ["HADOOP_USER_NAME"])\
     .getOrCreate()
 
-spark.sql("drop table default.customer_interactions_cicd")
+#spark.sql("drop table default.customer_interactions_cicd")
 
 spark.sql("""CREATE TABLE IF NOT EXISTS default.customer_interactions_CICD (NAME STRING, 
           STREET_ADDRESS STRING,
