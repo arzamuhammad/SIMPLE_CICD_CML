@@ -8,7 +8,7 @@ import os
 
 ## Creasting some random instances from the original file ##
 
-new_interactions_df = pd.read_csv("Simple_CICD_CML/data/historical.csv")
+new_interactions_df = pd.read_csv("data/historical.csv")
 
 df_sample = new_interactions_df.sample(1000)
 

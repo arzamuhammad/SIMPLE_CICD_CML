@@ -7,7 +7,7 @@ from pyspark.sql import SparkSession
 from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler, StandardScaler
 from pyspark.ml import PipelineModel
 from pyspark.ml.linalg import DenseVector
-from Simple_CICD_CML.utils.get_latest_models import *
+from utils.get_latest_models import *
 
 spark = SparkSession\
     .builder\

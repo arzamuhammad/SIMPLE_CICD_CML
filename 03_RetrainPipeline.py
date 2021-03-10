@@ -8,7 +8,7 @@ from pyspark.sql import SparkSession
 from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler, StandardScaler
 from pyspark.ml import PipelineModel, Pipeline
 from pyspark.ml.linalg import DenseVector
-from Simple_CICD_CML.utils.get_latest_models import *
+from utils.get_latest_models import *
 
 spark = SparkSession\
     .builder\
@@ -42,7 +42,7 @@ run_time_suffix_string = run_time_suffix.strftime("%d%m%Y%H%M%S")
 pm.write().overwrite().save(os.environ["STORAGE"]+"/testpysparkmodels/"+"{}".format(run_time_suffix_string))
 
 ## Saving the newly trained model metadata
-conn = sqlite3.connect('Simple_CICD_CML/models.db')
+conn = sqlite3.connect('models.db')
 c = conn.cursor()
 
 import re

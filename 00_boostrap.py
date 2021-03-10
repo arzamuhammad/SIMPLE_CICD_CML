@@ -27,12 +27,12 @@ os.environ['STORAGE'] = storage
 ## Apply Batch ID and Current time to data ##
 
 now = datetime.now()
-df = pd.read_csv("Simple_CICD_CML/data/historical.csv")
+df = pd.read_csv("data/historical.csv")
 
 df['batch_id'] = uuid.uuid1()
 df['batch_tms'] = datetime.now() 
 
-df.to_csv("Simple_CICD_CML/data/historical.csv", index=False)
+df.to_csv("data/historical.csv", index=False)
 
 ### Load Historical Data
 
@@ -43,7 +43,7 @@ spark = SparkSession\
     .config("spark.hadoop.yarn.resourcemanager.principal",os.environ["HADOOP_USER_NAME"])\
     .getOrCreate()
 
-#spark.sql("drop table default.customer_interactions_cicd")
+spark.sql("drop table default.customer_interactions_cicd")
 
 spark.sql("""CREATE TABLE IF NOT EXISTS default.customer_interactions_CICD (NAME STRING, 
           STREET_ADDRESS STRING,
@@ -65,14 +65,14 @@ spark.sql("""CREATE TABLE IF NOT EXISTS default.customer_interactions_CICD (NAME
           BATCH_TMS TIMESTAMP
           )""")
     
-historical_spark_df = spark.read.csv("Simple_CICD_CML/data/historical.csv", header=True, sep=',')
+historical_spark_df = spark.read.csv("data/historical.csv", header=True, sep=',')
 
 historical_spark_df.write.insertInto("default.customer_interactions_CICD", overwrite = False) 
 
 ## Create sqlite table to track models metadata
 
 import sqlite3
-conn = sqlite3.connect('Simple_CICD_CML/models.db')
+conn = sqlite3.connect('models.db')
 c = conn.cursor()
 c.execute(""" CREATE TABLE models (model_name text, model_id text, training_time timestamp, model_storage_location text) """)
 c.execute(""" CREATE TABLE pipelines (pipeline_name text, pipeline_id text, training_time timestamp, pipeline_storage_location text) """)

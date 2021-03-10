@@ -49,7 +49,7 @@ def find_latest(ml_object): #ml_object should be speciffied as "pipeline" or "mo
 
   ## Loading latest pipeline object from storage
 
-  conn = sqlite3.connect('Simple_CICD_CML/models.db')
+  conn = sqlite3.connect('models.db')
   c = conn.cursor()
   p = c.execute('''SELECT {} FROM {} ORDER BY training_time DESC'''.format(location, table))
   
