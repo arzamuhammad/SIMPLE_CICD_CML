@@ -20,7 +20,7 @@ for prop in root.findall('property'):
     if prop.find('name').text == "hive.metastore.warehouse.dir":
         storage = prop.find('value').text.split("/")[0] + "//" + prop.find('value').text.split("/")[2]
 
-print("The correct ADLS 2 URL is:{}".format(storage))
+print("The correct Coud Storage URL is:{}".format(storage))
 
 os.environ['STORAGE'] = storage
 
