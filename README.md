@@ -6,9 +6,7 @@
 
 ##### 0. Clone this github repository
 
-- Create a new CML blank project (do not create from github)
-- In the new project, start a Workbench editor session, open the terminal, and execute the following command:
-"git clone https://github.com/pdefusco/Simple_CICD_CML.git"
+- Create a new CML project and in the "git" tab enter the following url: https://github.com/pdefusco/Simple_CICD_CML.git
 
 
 ##### 1. Open a Workbench editor session and run 00_bootstrap.py
