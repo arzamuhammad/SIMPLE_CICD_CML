@@ -1,0 +1,5 @@
+- Sklearn Classifier 28032021005601:
+    hive_table_qualified_names:
+    - DEFAULT.CUSTOMER_INTERACTIONS_CICD
+    metadata:
+      custom metadata key: custom metadata value
