@@ -28,7 +28,7 @@ df = spark.sql("SELECT RECENCY, HISTORY, USED_DISCOUNT, USED_BOGO, ZIP_CODE, IS_
 #Renaming target feature as "LABEL":
 df = df.withColumnRenamed("CONVERSION","label")
 
-latest_url_formatted = find_latest("pipeline")
+latest_url_formatted = find_latest("spark_pipeline")
 
 pm = Pipeline.load(latest_url_formatted)
 

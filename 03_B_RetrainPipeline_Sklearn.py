@@ -9,6 +9,7 @@ from utils.get_latest_models import *
 import joblib
 from cmlbootstrap import CMLBootstrap
 from sklearn.ensemble import RandomForestClassifier
+import yaml
 
 spark = SparkSession\
     .builder\
@@ -22,8 +23,10 @@ spark = SparkSession\
     
 ### Reading latest data and recreating pipeline from model development notebook
 
+spark_table = "DEFAULT.CUSTOMER_INTERACTIONS_CICD"
+
 #Notice we are only picking the most recent 1000 rows reflecting latest customer interactions
-df = spark.sql("SELECT RECENCY, HISTORY, USED_DISCOUNT, USED_BOGO, ZIP_CODE, IS_REFERRAL, CHANNEL, OFFER, SCORE, CONVERSION FROM DEFAULT.CUSTOMER_INTERACTIONS_CICD ORDER BY BATCH_TMS DESC LIMIT 20000")
+df = spark.sql("SELECT RECENCY, HISTORY, USED_DISCOUNT, USED_BOGO, ZIP_CODE, IS_REFERRAL, CHANNEL, OFFER, SCORE, CONVERSION FROM {} ORDER BY BATCH_TMS DESC LIMIT 20000".format(spark_table))
 
 #Renaming target feature as "LABEL":
 df = df.withColumnRenamed("CONVERSION","label")
@@ -93,12 +96,28 @@ user_obj = {"id": user_details["id"], "username": USERNAME,
 project_details = cml.get_project({})
 project_id = project_details["id"]
 
+
+# Get Default Engine Details
+default_engine_details = cml.get_default_engine({})
+default_engine_image_id = default_engine_details["id"]
+
+## CREATE MODEL PROGRAMMATICALLY ##
+
+model_name = "Sklearn Classifier " + run_time_suffix_string
+
+# Create the YAML file for Model Lineage
+
+dict_yaml = [{model_name : {"hive_table_qualified_names": [spark_table], "metadata":{"custom metadata key" : "custom metadata value"}}}]
+
+with open(r'lineage.yml', 'w') as file:
+  documents = yaml.dump(dict_yaml, file)
+
 # Create Model
 example_model_input = {"RECENCY": 23, "HISTORY": 29, "USED_DISCOUNT": 0, "USED_BOGO": 0, "IS_REFERRAL": 0, "SCORE":0.766}
 
 create_model_params = {
     "projectId": project_id,
-    "name": "Sklearn Classifier " + run_time_suffix,
+    "name": model_name,
     "description": "Marketing Campaign Predictions",
     "visibility": "private",
     "enableAuth": False,
@@ -125,3 +144,18 @@ print("New model created with access key", access_key)
 
 # Disable model_authentication
 cml.set_model_auth({"id": model_id, "enableAuth": False})
+
+#Wait for the model to deploy. Tear down previous model. 
+is_deployed = False
+
+while is_deployed == False:
+  model = cml.get_model({"id": str(new_model_details["id"]), "latestModelDeployment": True, "latestModelBuild": True})
+  if model["latestModelDeployment"]["status"] == 'deployed':
+    print("Model is deployed")
+    break
+  else:
+    print ("Deploying Model.....")
+    time.sleep(10)
+
+
+

@@ -30,7 +30,7 @@ df = spark.sql("SELECT RECENCY, HISTORY, USED_DISCOUNT, USED_BOGO, ZIP_CODE, IS_
 df = df.withColumnRenamed("CONVERSION","label")
 
 
-latest_url_formatted = find_latest("model")
+latest_url_formatted = find_latest("spark_model")
 
 pm = PipelineModel.load(latest_url_formatted)
 

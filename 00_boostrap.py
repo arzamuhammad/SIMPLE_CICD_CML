@@ -1,6 +1,6 @@
 ## NB: Only run this once ##
 
-#!rm /home/cdsw/Simple_CICD_CML/models.db
+!rm /home/cdsw/Simple_CICD_CML/models.db
 
 import os
 import time
@@ -74,7 +74,8 @@ historical_spark_df.write.insertInto("default.customer_interactions_CICD", overw
 import sqlite3
 conn = sqlite3.connect('models.db')
 c = conn.cursor()
-c.execute(""" CREATE TABLE models (model_name text, model_id text, training_time timestamp, model_storage_location text) """)
-c.execute(""" CREATE TABLE pipelines (pipeline_name text, pipeline_id text, training_time timestamp, pipeline_storage_location text) """)
+c.execute(""" CREATE TABLE spark_models (model_name text, model_id text, training_time timestamp, model_storage_location text) """)
+c.execute(""" CREATE TABLE spark_pipelines (pipeline_name text, pipeline_id text, training_time timestamp, pipeline_storage_location text) """)
+c.execute(""" CREATE TABLE sklearn_models (model_name text, model_id text, training_time timestamp, model_storage_location text) """)
 conn.commit()
 conn.close()

@@ -3,3 +3,5 @@ sklearn
 boto3
 plot_metric
 git+https://github.com/fastforwardlabs/cmlbootstrap#egg=cmlbootstrap
+joblib
+pyyaml

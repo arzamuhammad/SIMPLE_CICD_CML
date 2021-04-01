@@ -1,5 +1,4 @@
 
-![alt text](https://github.com/pdefusco/myimages_repo/blob/main/Simple%20CI_CD%20in%20CML.jpeg)
 
 
 ## INSTRUCTIONS FOR USE
@@ -44,6 +43,4 @@
 - NB: in a real world scenario, you'd have to schedule a waiting time to allow for customer responses to come into the customer table.
 
 
-10/27/20 WIP items
-1. There is no dashboard yet
-2. The model in 01_ModelDevelopment.ipynb is not tuned. I will be working on a custom oversampling stage to improve that model.
+![alt text](images/Simple_CI_CD_in_CML.jpeg)
