@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import pandas as pd
+from datetime import datetime
 
 import os
 import sys
@@ -13,12 +14,14 @@ from pyspark.sql import SparkSession
 spark = SparkSession\
     .builder\
     .appName("ModelDevelopment")\
-    .config("spark.authenticate", "true")\
-    .config("spark.yarn.access.hadoopFileSystems", os.environ["STORAGE"])\
+    .config("spark.hadoop.fs.s3a.s3guard.ddb.region","us-east-2")\
     .config("spark.hadoop.yarn.resourcemanager.principal",os.environ["HADOOP_USER_NAME"])\
+    .config("spark.yarn.access.hadoopFileSystems", os.environ["STORAGE"])\
     .config("spark.executor.memory","6g")\
     .config("spark.executor.cores","3")\
     .getOrCreate()
+    
+#    .config("spark.authenticate", "true")\
 
 hist_DF = spark.sql("SELECT * FROM DEFAULT.CUSTOMER_INTERACTIONS_CICD")
 

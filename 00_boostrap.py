@@ -1,6 +1,7 @@
 ## NB: Only run this once ##
 
-!rm /home/cdsw/Simple_CICD_CML/models.db
+#!rm /home/cdsw/Simple_CICD_CML/models.db
+!pip3 install -r requirements.txt
 
 import os
 import time
@@ -43,7 +44,7 @@ spark = SparkSession\
     .config("spark.hadoop.yarn.resourcemanager.principal",os.environ["HADOOP_USER_NAME"])\
     .getOrCreate()
 
-spark.sql("drop table default.customer_interactions_cicd")
+spark.sql("DROP TABLE IF EXISTS default.customer_interactions_cicd")
 
 spark.sql("""CREATE TABLE IF NOT EXISTS default.customer_interactions_CICD (NAME STRING, 
           STREET_ADDRESS STRING,
